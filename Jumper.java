@@ -69,12 +69,4 @@ public class Jumper extends Bug{
 	        // ok to move into empty location or onto flower
 	        // not ok to move onto any other actor
 	    }
-	    public boolean getCanMove()
-	    {
-	    	return canMove();
-	    }
-	    public boolean getCanJump()
-	    {
-	    	return canJump();
-	    }
 	}
