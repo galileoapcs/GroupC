@@ -1,21 +1,3 @@
-/* 
- * AP(r) Computer Science GridWorld Case Study:
- * Copyright(c) 2005-2006 Cay S. Horstmann (http://horstmann.com)
- *
- * This code is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation.
- *
- * This code is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * @author Cay Horstmann
- * @author Chris Nevison
- * @author Barbara Cloud Wells
- */
-
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -43,12 +25,10 @@ public class TetrisBug extends Bug
     public TetrisBug(Color newColor)
     
     {
-        setColor(newColor);
+    	super();
+    	setDirection(180);
     }
-    public void setDirection(int newDirection)
-    {
-    	newDirection = 180;
-    }
+
 
     /**
      * Moves to the next location of the square.
@@ -65,71 +45,11 @@ public class TetrisBug extends Bug
             return;
         Location loc = getLocation();
         Location next = loc.getAdjacentLocation(getDirection());
-        Location next1 = next.getAdjacentLocation(getDirection());
-        if (gr.isValid(next1))
-            moveTo(next1);
+        if (gr.isValid(next))
+            moveTo(next);
         else
         	removeSelfFromGrid();
       
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
