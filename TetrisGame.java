@@ -34,6 +34,7 @@ public class TetrisGame {
 	 * Handles game simulation and KeyEvent handling
 	 * NOTE: YOU DO NOT NEED TO WRITE ANY CODE IN THE main
 	 */
+	public static Location loc;
 	public static void main(String[] args) {
 
 		//set up world
@@ -68,6 +69,7 @@ public class TetrisGame {
 	 * Calls removeCompleteRows and chooses a new TetrisBlock at random
 	 */
 	public static void nextTetrisBlock() {
+		Grid<Actor> gr = world.getGrid();
 
 		removeCompleteRows();
 		TetrisBlock randomBlock = new TetrisBlock();//default 2block piece
@@ -99,10 +101,46 @@ public class TetrisGame {
 	public static void removeCompleteRows() {
 		Grid<Actor> gr = world.getGrid();
 		//Your code goes here ... see Question 2
+		for(int i = 18; i > 0; i--)
+		{
+				if(isFullRow(i))
+				{
+					for(int j = 1; j < 11; j++)
+					{
+					gr.remove(new Location(i,j));
+					}
+					score++;
+					for(int k = 17; k > 0; k--)
+					{
+						for(int l = 1; l < 11; l++)
+						{
+							if(gr.get(new Location (k, l)) != null)
+							{
+								gr.get(new Location (k,l)).moveTo(new Location (k+1,l));
+							}
+						}
+					}
 
-
+				i++;
+				}
+				
+		}
 	}
 	
+	
+	private static boolean isFullRow(int i)
+	{
+		Grid<Actor> gr = world.getGrid();		
+		for(int j = 10; j > 0; j--)
+		{
+			if(gr.get(new Location(i,j)) == null)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
 
 
 }
