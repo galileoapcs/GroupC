@@ -39,12 +39,7 @@ public class TetrisBlockI extends TetrisBlock {
 
 		// ==> LAMEST GAME OVER EVER !!! <==
 		// if the Grid does not have room for the TetrisBlock.. GameOver
-		if  (gr.get(new Location(2,5)) == null || gr.get(new Location(3,5)) != null ) 
-		{
-			javax.swing.JOptionPane.showMessageDialog(null, "Score: "
-					+ TetrisGame.score, "GAME OVER!", 0);
-			System.exit(0);
-		}
+		
 		
 		
 
@@ -80,18 +75,10 @@ public class TetrisBlockI extends TetrisBlock {
 			TetrisGame.nextTetrisBlock();
 	}
 
-	public void move()
-    {
-        Grid<Actor> gr = getGrid();
-        if (gr == null)
-            return;
-        Location loc = getLocation();
-        Location next = loc.getAdjacentLocation(getDirection());
-        if (gr.isValid(next))
-            moveTo(next);
+	
         
       
-    }
+  
 	/**
 	 * Move the TetrisBlock and its TetrisBugs one cell. (they should already be
 	 * facing down) Note: The order in which all the TetrisBugs move is important
