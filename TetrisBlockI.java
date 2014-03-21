@@ -97,30 +97,11 @@ public class TetrisBlockI extends TetrisBlock {
 	 * facing down) Note: The order in which all the TetrisBugs move is important
 	 * and depends on the current rotationPos.
 	 */
-	public void moveDown() {
-		if (rotationPos == 0) {
-			move();
-			blocks.get(0).move();
-			blocks.get(1).move();
-			blocks.get(2).move();
-		} else if (rotationPos == 1) {
-			blocks.get(0).move();
-			blocks.get(1).move();
-			
-			move();
-			
-		}
-	}
-
-	/**
-	 * Returns true if the TetrisBlock and its TetrisBugs can move (they should
-	 * already be facing down) Otherwise, returns false.
-	 */
 	public boolean canMoveDown() {
 		if (rotationPos == 0)
-			return canMove();
+			return canMove() && blocks.get(2).canMove();
 		else if (rotationPos == 1)
-			return canMove() && blocks.get(0).canMove();
+			return canMove() && blocks.get(1).canMove();
 		else
 			return true;
 	}
@@ -134,16 +115,20 @@ public class TetrisBlockI extends TetrisBlock {
 		for (TetrisBug tb : blocks)
 			tb.setDirection(90);
 		if (rotationPos == 0) {
-			if (canMove() && blocks.get(0).canMove()) {
+			if (blocks.get(1).canMove() && blocks.get(2).canMove()) {
+				blocks.get(2).move();
+				blocks.get(1).move();
 				blocks.get(0).move();
 				move();
 			}
 		} else if (rotationPos == 1) {
 
-			if (canMove()) {
+			if (canMove() && blocks.get(0).canMove()) {
 				move();
 				blocks.get(0).move();
-				turn();
+				blocks.get(1).move();
+				blocks.get(2).move();
+
 			}
 		}
 	}
@@ -160,12 +145,16 @@ public class TetrisBlockI extends TetrisBlock {
 			tb.setDirection(270);
 		if (rotationPos == 0) {
 			if (canMove() && blocks.get(0).canMove()) {
-				blocks.get(0).move();
 				move();
+				blocks.get(0).move();
+				blocks.get(1).move();
+				blocks.get(2).move();
 			}
 			
 		} else if (rotationPos == 1) {
 			if (blocks.get(0).canMove()) {
+				blocks.get(2).move();
+				blocks.get(1).move();
 				blocks.get(0).move();
 				move();
 			}
@@ -178,30 +167,8 @@ public class TetrisBlockI extends TetrisBlock {
 	 * to their proper location for the given rotation designated by
 	 * rotationPos... Update rotationPos.
 	 */
-	public void rotate() {
-		Location nextLoc;
-		if (rotationPos == 0) {
-			// only one block must move
-			nextLoc = new Location(getLocation().getRow() - 1,
-					getLocation().getCol() + 1);
-			if (gr.isValid(nextLoc) && gr.get(nextLoc) == null) {
-				moveTo(nextLoc);
-				rotationPos = (rotationPos + 1) % 4;// will be % 4 with 4 blocks
-			}
-		} else if (rotationPos == 1) {
-			nextLoc = new Location(getLocation().getRow() + 1,
-					getLocation().getCol() - 1);
-			if (gr.isValid(nextLoc) && gr.get(nextLoc) == null) {
-				moveTo(nextLoc);
-				rotationPos = (rotationPos + 1) % 4;// will be % 4 with 4 blocks
-			}
-
-			// Your code goes here ... see Question 1
-
-			
-		}
-
-	}
 	
 
-}
+	}
+
+
